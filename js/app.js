@@ -2,6 +2,50 @@ $(start);
 
 // ** Need to place an if statement to say, don't run zombies after so many goes. then refresh.
 
+// var $zombie;
+// var $human;
+// var $grave;
+// var $gridArray[];
+
+//   var $end = $(){
+//   alert("Urgh you dead!");
+// };
+// setTimeout(end, 2000);
+
+// **lives variable. This needs to then be updated by zombie click
+// var $lives = $('.lives span');
+// $lives.value = 0;
+// $lives.text($lives.value);
+
+// **human
+// var $human = $('li');
+// need to think of how the humans come up in the spare cells. There needs to be an array that picks where these humans pop up.
+
+// need to update the score - so they loose a life.
+//** hitting the blank space. you're fine. nothing is triggered.
+// ** Need to set the Zombies pop up animation
+
+// **Original Working code - zombie only
+// var $zombie = $('li');
+//
+//   setInterval(function() {
+//     if ($('.zombie').length < 3) {
+//       var random = Math.floor(Math.random() * $zombie.length);
+//       $($zombie[random]).attr('class', 'zombie');
+//     }
+//   }, 500);
+//
+//
+//   $zombie.on('click', function() {
+//     if ($(this).attr('class') === 'zombie') {
+//       $score.text($score.value += 10);
+//       $(this).attr('class', 'grave');
+//     } else {
+//       $score.text($score.value -= 10);
+//     }
+//   });
+// }
+
 function start(){
 
   // Scoring set to zero value to begin with.
@@ -9,53 +53,124 @@ function start(){
   $score.value = 0;
   $score.text($score.value);
 
-  // var $zombie;
-  // var $human;
-  // var $grave;
-  // var $gridArray[];
-
-  var $end = $(){
-  alert("Urgh you dead!");
-};
-setTimeout(end, 2000);
-
-  // **lives variable. This needs to then be updated by zombie click
-  // var $lives = $('.lives span');
-  // $lives.value = 0;
-  // $lives.text($lives.value);
-
-  // **human
-  // var $human = $('li');
-  // need to think of how the humans come up in the spare cells. There needs to be an array that picks where these humans pop up.
-
-  // need to update the score - so they loose a life.
-  //** hitting the blank space. you're fine. nothing is triggered.
-  // ** Need to set the Zombies pop up animation
+  var $availableSquares = [0,1,2,3,4,5,6,7,8,9,10,11];
 
 
-  var $lis = $('li');
+// Adapting earlier Zombie function to use this array rather than just randomly picking a number
+  var $zombie = $('li');
 
   setInterval(function() {
     if ($('.zombie').length < 3) {
-      var random = Math.floor(Math.random() * $lis.length);
-      $($lis[random]).attr('class', 'zombie');
+        // this is picking a random index from the available squares index.
+      var random = Math.floor(Math.random() * $availableSquares.length);
+        // this is retrieving the value of the element at that index
+      var randomElement  = $availableSquares[random];
+        //this is splicing out the element at that index so that it can't be selected again
+      $availableSquares.splice(random, 1);
+        // this is now using that randomly selected element from the available squares array.
+      $($zombie[randomElement]).attr('class', 'zombie');
     }
   }, 500);
 
-
-  $lis.on('click', function() {
+  $zombie.on('click', function() {
     if ($(this).attr('class') === 'zombie') {
       $score.text($score.value += 10);
       $(this).attr('class', 'grave');
     } else {
-      $score.text($score.value -= 10);
+      $score.text($score.value -= 0);
     }
   });
+
+
+
+  var $human = $('li');
+
+  setInterval(function() {
+    if ($('.human').length < 2) {
+        // this is picking a random index from the available squares index.
+      var random = Math.floor(Math.random() * $availableSquares.length);
+        // this is retrieving the value of the element at that index
+      var randomElement  = $availableSquares[random];
+        // this is splicing out the element at that index so that it can't be selected again
+      $availableSquares.splice(random, 1);
+        // this is now using that randomly selected element from the available squares array.
+      $($human[randomElement]).attr('class', 'human');
+    }
+  }, 500);
+
+
+
+  $human.on('click', function() {
+    if ($(this).attr('class') === 'human') {
+      $score.text($score.value += -10);
+      $(this).attr('class', 'grave');
+    } else {
+      $score.text($score.value -= 0);
+    }
+    // if ($score.value === 50)
+    //   alert('game Over');
+  });
+
+
+// Refreshing via button
+  $(document).ready(function(){
+    $('#refresh').click(function(){
+      location.reload();
+    });
+  });
+// refreshing the page automatically
+  setTimeout(function() {
+    location.reload();
+  },6000);
+
 }
 
-$human.on('click', function()){
-  if
-}
+
+//
+// // function checkForWin($score.value){
+//   console.log($score.value);
+// for (var i = 0; i< winningCombinations.length;)
+//
+// }
+
+
+
+// function checkForWin(movesArray, player){
+//   console.log(movesArray,player);
+//   // we're incrementing on the winningCominbation array here:
+//   for (var i = 0; i< winningCombinations.length; i++){
+//     winCounter = 0;
+//
+//     for (var j = 0; j < winningCombinations[i].length; j++) {
+//
+//       // indexof searches through the array
+//       if(movesArray.indexOf(winningCombinations [i][j]) !== -1){
+//         winCounter++;
+//       }
+//       if (winCounter ===3){
+//         alert('Game Over,' + player + ' Wins!');
+//       }
+//     }
+//   }
+// }
+
+
+
+
+
+
+
+// how do I make the square  available again - pushing it back into the array of available squares.
+// Index of  - push the index of the newly available squares in the lis array into the available squares array.
+
+
+
+
+
+
+// $human.on('click', function()){
+//   if
+// }
 
 // var $zombieClick = $('li'); {
 //   $zombieClick.on =('click', function(){
