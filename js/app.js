@@ -1,5 +1,8 @@
 $(start);
 
+
+
+//       start();
 // ** Need to place an if statement to say, don't run zombies after so many goes. then refresh.
 
 // var $zombie;
@@ -45,83 +48,149 @@ $(start);
 //     }
 //   });
 // }
-
-function start(){
-
-  // Scoring set to zero value to begin with.
-  var $score = $('.score span');
-  $score.value = 0;
-  $score.text($score.value);
-
-  var $availableSquares = [0,1,2,3,4,5,6,7,8,9,10,11];
+// var $availableSquares;
+// var $availableSquares = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 
 // Adapting earlier Zombie function to use this array rather than just randomly picking a number
-  var $zombie = $('li');
+  //random index from the available squares index.
+// retrieving the value of the element at that index
+// var randomElement  = $availableSquares[random];
+//splicing out the element at index so that it can't be selected again
+// $availableSquares.splice(random, 1);
+//randomly selected element from the available squares array.
 
+
+
+
+// var $lis = $('li');
+//
+// setInterval(function() {
+//
+//   var random = Math.floor(Math.random() * $lis.length);
+//   var randomClass = (random < 9) ? 'zombie' : 'human';
+//
+//   $($lis[random]).attr('class', randomClass);
+//   setTimeout(function() {
+//     $($lis[random]).attr('class','grave');
+//   }, (4000 / (random+level)));
+// }, 600);
+
+
+
+
+var $score;
+var $level;
+var $highScore;
+
+function start(){
+// function $startGame('.start')
+  // Scoring set to zero value to begin with.
+  $score = $('.score span');
+  $level = $('.level span');
+  $highScore = $('.highScore span');
+
+  var level = 1;
+  $level.text(level);
+  $score.value = 0;
+  $score.text($score.value);
+  $highScore.value = 0;
+  $highScore.text($score.value);
+
+
+  var $lis = $('li');
   setInterval(function() {
-    if ($('.zombie').length < 3) {
-        // this is picking a random index from the available squares index.
-      var random = Math.floor(Math.random() * $availableSquares.length);
-        // this is retrieving the value of the element at that index
-      var randomElement  = $availableSquares[random];
-        //this is splicing out the element at that index so that it can't be selected again
-      $availableSquares.splice(random, 1);
-        // this is now using that randomly selected element from the available squares array.
-      $($zombie[randomElement]).attr('class', 'zombie');
-    }
-  }, 500);
 
-  $zombie.on('click', function() {
+    var random = Math.floor(Math.random() * $lis.length);
+    var randomNumForClass = Math.floor(Math.random() * $lis.length);
+    var randomClass = (randomNumForClass < 9) ? 'zombie' : 'human';
+
+    $($lis[random]).attr('class', randomClass);
+    setTimeout(function() {
+      if ($($lis[random]).attr('class') === 'zombie') {
+        $score.text($score.value -= 5);
+      }
+      $($lis[random]).attr('class','grave');
+    }, (1000 / (level)));
+  }, 600);
+
+  $lis.on('click', function() {
     if ($(this).attr('class') === 'zombie') {
       $score.text($score.value += 10);
       $(this).attr('class', 'grave');
-    } else {
-      $score.text($score.value -= 0);
-    }
-  });
-
-
-
-  var $human = $('li');
-
-  setInterval(function() {
-    if ($('.human').length < 2) {
-        // this is picking a random index from the available squares index.
-      var random = Math.floor(Math.random() * $availableSquares.length);
-        // this is retrieving the value of the element at that index
-      var randomElement  = $availableSquares[random];
-        // this is splicing out the element at that index so that it can't be selected again
-      $availableSquares.splice(random, 1);
-        // this is now using that randomly selected element from the available squares array.
-      $($human[randomElement]).attr('class', 'human');
-    }
-  }, 500);
-
-
-
-  $human.on('click', function() {
-    if ($(this).attr('class') === 'human') {
-      $score.text($score.value += -10);
+    } else if ($(this).attr('class') === 'human') {
+      $score.text($score.value -= 20 );
       $(this).attr('class', 'grave');
     } else {
-      $score.text($score.value -= 0);
+      $score.text($score.value -= 5);
     }
-    // if ($score.value === 50)
-    //   alert('game Over');
+    checkPoints();
   });
 
+  function checkPoints() {
+    if ($score.value > $highScore.value) {
+      $highScore.value = $score.value;
+      $highScore.text($highScore.value);
+    }
+    if ($score.value > -20 && $score.value < 100) {
+      level = 1;
+    } else if ($score.value >= 100 && $score.value < 150) {
+      level = 2;
+    } else if ($score.value >= 150 && $score.value < 250) {
+      level = 3;
+    } else if ($score.value >= 250 && $score.value < 350) {
+      level = 4;
+    } else if ($score.value >= 350 && $score.value < 450) {
+      level = 5;
+    } else if ($score.value <= -20){
 
-// Refreshing via button
+    }
+    $level.text(level);
+
+
+  }
+
+
+
+  // var $human = $('li');
+  //
+  // setInterval(function() {
+  //   if ($('.human').length < 2) {
+  //       // this is picking a random index from the available squares index.
+  //     var random = Math.floor(Math.random() * $availableSquares.length);
+  //       // this is retrieving the value of the element at that index
+  //     var randomElement  = $availableSquares[random];
+  //       // this is splicing out the element at that index so that it can't be selected again
+  //     $availableSquares.splice(random, 1);
+  //       // this is now using that randomly selected element from the available squares array.
+  //     $($human[randomElement]).attr('class', 'human');
+  //   }
+  // }, 500);
+  //
+  //
+  //
+  // $human.on('click', function() {
+  //   if ($(this).attr('class') === 'human') {
+  //     $score.text($score.value -= 10);
+  //     $(this).attr('class', 'grave');
+  //   } else {
+  //     $score.text($score.value -= 0);
+  //   }
+  //   // if ($score.value === 50)
+  //   //   alert('game Over');
+  // });
+
+
+  // Refreshing via button
   $(document).ready(function(){
     $('#refresh').click(function(){
       location.reload();
     });
   });
-// refreshing the page automatically
-  setTimeout(function() {
-    location.reload();
-  },6000);
+  // refreshing the page automatically
+  // setTimeout(function() {
+  //   // location.reload();
+  // }, 6000);
 
 }
 

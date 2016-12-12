@@ -24,11 +24,11 @@ li {
   list-style-type: none;
   width: 198px;
   height: 198px;
-  border: 1px solid #000;
+  border: 0px solid #000;
   float:left;
   color: #fff;
 }
 
-.zombie    { background: red; }
-.grave  { background: green; }
+.zombie { background: red;}
+.grave { background: #7ec850;}
 .human { background: blue;}
