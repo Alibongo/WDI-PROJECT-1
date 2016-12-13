@@ -1,103 +1,28 @@
 $(start);
 
-
-
-//       start();
-// ** Need to place an if statement to say, don't run zombies after so many goes. then refresh.
-
-// var $zombie;
-// var $human;
-// var $grave;
-// var $gridArray[];
-
-//   var $end = $(){
-//   alert("Urgh you dead!");
-// };
-// setTimeout(end, 2000);
-
-// **lives variable. This needs to then be updated by zombie click
-// var $lives = $('.lives span');
-// $lives.value = 0;
-// $lives.text($lives.value);
-
-// **human
-// var $human = $('li');
-// need to think of how the humans come up in the spare cells. There needs to be an array that picks where these humans pop up.
-
-// need to update the score - so they loose a life.
-//** hitting the blank space. you're fine. nothing is triggered.
-// ** Need to set the Zombies pop up animation
-
-// **Original Working code - zombie only
-// var $zombie = $('li');
-//
-//   setInterval(function() {
-//     if ($('.zombie').length < 3) {
-//       var random = Math.floor(Math.random() * $zombie.length);
-//       $($zombie[random]).attr('class', 'zombie');
-//     }
-//   }, 500);
-//
-//
-//   $zombie.on('click', function() {
-//     if ($(this).attr('class') === 'zombie') {
-//       $score.text($score.value += 10);
-//       $(this).attr('class', 'grave');
-//     } else {
-//       $score.text($score.value -= 10);
-//     }
-//   });
-// }
-// var $availableSquares;
-// var $availableSquares = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
-
-// Adapting earlier Zombie function to use this array rather than just randomly picking a number
-  //random index from the available squares index.
-// retrieving the value of the element at that index
-// var randomElement  = $availableSquares[random];
-//splicing out the element at index so that it can't be selected again
-// $availableSquares.splice(random, 1);
-//randomly selected element from the available squares array.
-
-
-
-
-// var $lis = $('li');
-//
-// setInterval(function() {
-//
-//   var random = Math.floor(Math.random() * $lis.length);
-//   var randomClass = (random < 9) ? 'zombie' : 'human';
-//
-//   $($lis[random]).attr('class', randomClass);
-//   setTimeout(function() {
-//     $($lis[random]).attr('class','grave');
-//   }, (4000 / (random+level)));
-// }, 600);
-
-
-
-
 var $score;
 var $level;
 var $highScore;
+var level = 1;
 
+//start button. Original error. had everything in the start function!
+// made another function PickBox to be called and trigger start. See line 22.
 function start(){
-// function $startGame('.start')
-  // Scoring set to zero value to begin with.
+// Scoring set to zero value to begin with.
   $score = $('.score span');
   $level = $('.level span');
   $highScore = $('.highScore span');
 
-  var level = 1;
   $level.text(level);
   $score.value = 0;
   $score.text($score.value);
   $highScore.value = 0;
   $highScore.text($score.value);
 
+  $('.start').on('click', pickBox);
+}
 
+function pickBox() {
   var $lis = $('li');
   setInterval(function() {
 
@@ -117,6 +42,7 @@ function start(){
   $lis.on('click', function() {
     if ($(this).attr('class') === 'zombie') {
       $score.text($score.value += 10);
+      new Audio('../audio/').play()
       $(this).attr('class', 'grave');
     } else if ($(this).attr('class') === 'human') {
       $score.text($score.value -= 20 );
@@ -149,50 +75,50 @@ function start(){
 
 
   }
-
-
-
-  // var $human = $('li');
-  //
-  // setInterval(function() {
-  //   if ($('.human').length < 2) {
-  //       // this is picking a random index from the available squares index.
-  //     var random = Math.floor(Math.random() * $availableSquares.length);
-  //       // this is retrieving the value of the element at that index
-  //     var randomElement  = $availableSquares[random];
-  //       // this is splicing out the element at that index so that it can't be selected again
-  //     $availableSquares.splice(random, 1);
-  //       // this is now using that randomly selected element from the available squares array.
-  //     $($human[randomElement]).attr('class', 'human');
-  //   }
-  // }, 500);
-  //
-  //
-  //
-  // $human.on('click', function() {
-  //   if ($(this).attr('class') === 'human') {
-  //     $score.text($score.value -= 10);
-  //     $(this).attr('class', 'grave');
-  //   } else {
-  //     $score.text($score.value -= 0);
-  //   }
-  //   // if ($score.value === 50)
-  //   //   alert('game Over');
-  // });
-
-
   // Refreshing via button
   $(document).ready(function(){
     $('#refresh').click(function(){
       location.reload();
     });
   });
-  // refreshing the page automatically
-  // setTimeout(function() {
-  //   // location.reload();
-  // }, 6000);
-
 }
+
+// var $human = $('li');
+//
+// setInterval(function() {
+//   if ($('.human').length < 2) {
+//       // this is picking a random index from the available squares index.
+//     var random = Math.floor(Math.random() * $availableSquares.length);
+//       // this is retrieving the value of the element at that index
+//     var randomElement  = $availableSquares[random];
+//       // this is splicing out the element at that index so that it can't be selected again
+//     $availableSquares.splice(random, 1);
+//       // this is now using that randomly selected element from the available squares array.
+//     $($human[randomElement]).attr('class', 'human');
+//   }
+// }, 500);
+//
+//
+//
+// $human.on('click', function() {
+//   if ($(this).attr('class') === 'human') {
+//     $score.text($score.value -= 10);
+//     $(this).attr('class', 'grave');
+//   } else {
+//     $score.text($score.value -= 0);
+//   }
+//   // if ($score.value === 50)
+//   //   alert('game Over');
+// });
+
+
+
+// refreshing the page automatically
+// setTimeout(function() {
+//   // location.reload();
+// }, 6000);
+
+
 
 
 //

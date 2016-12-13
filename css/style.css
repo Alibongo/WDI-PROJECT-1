@@ -29,6 +29,11 @@ li {
   color: #fff;
 }
 
-.zombie { background: red;}
+.zombie { background-image: url(../img/zombie1.png);
+   background-repeat:no-repeat;
+
+
+}
 .grave { background: #7ec850;}
-.human { background: blue;}
+.human  { background-image: url(../img/human1.png);
+   background-repeat:no-repeat;
