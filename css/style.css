@@ -1,15 +1,17 @@
 body {
-  background-color:  #7ec850;
+  /*background-color:  #7ec850;*/
+  /* midnight blue
+  background-color:  #003366;*/
 }
 
 main {
   margin: 0 auto;
   text-align: center;
+
 }
 
 h1 {
-  color: white;
-  font-family: sans-serif; Arial;
+text-align: center;
 }
 
 #board{

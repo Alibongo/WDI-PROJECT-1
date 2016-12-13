@@ -36,16 +36,18 @@ function pickBox() {
         $score.text($score.value -= 5);
       }
       $($lis[random]).attr('class','grave');
-    }, (1000 / (level)));
+    }, (1500 / (level)));
   }, 600);
 
   $lis.on('click', function() {
     if ($(this).attr('class') === 'zombie') {
       $score.text($score.value += 10);
-      new Audio('../audio/').play()
+      new Audio('audio/groan.wav').play();
       $(this).attr('class', 'grave');
+      console.log('groan');
     } else if ($(this).attr('class') === 'human') {
       $score.text($score.value -= 20 );
+      new Audio('audio/scream.wav').play();
       $(this).attr('class', 'grave');
     } else {
       $score.text($score.value -= 5);
