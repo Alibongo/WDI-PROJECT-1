@@ -9,9 +9,9 @@ var level = 1;
 // made another function PickBox to be called and trigger start. See line 22.
 function start(){
 // Scoring set to zero value to begin with.
-  $score = $('.score span');
-  $level = $('.level span');
-  $highScore = $('.highScore span');
+  $score = $('#score span');
+  $level = $('#level span');
+  $highScore = $('#highScore span');
 
   $level.text(level);
   $score.value = 0;
@@ -41,16 +41,16 @@ function pickBox() {
 
   $lis.on('click', function() {
     if ($(this).attr('class') === 'zombie') {
-      $score.text($score.value += 10);
+      $score.text($score.value += 15);
       new Audio('audio/groan.wav').play();
       $(this).attr('class', 'grave');
       console.log('groan');
     } else if ($(this).attr('class') === 'human') {
-      $score.text($score.value -= 20 );
+      $score.text($score.value -= 10 );
       new Audio('audio/scream.wav').play();
       $(this).attr('class', 'grave');
     } else {
-      $score.text($score.value -= 5);
+      $score.text($score.value -= 15);
     }
     checkPoints();
   });
